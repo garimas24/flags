@@ -41,7 +41,7 @@ function Countries() {
       .then((data) => {
         setCountries(data);
       })
-      .catch((err) => console.log("Error", err));
+      .catch((error) => console.log("Error", error));
   }, []);
   return (
     <div
