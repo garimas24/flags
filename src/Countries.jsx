@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 // import App from "./App.js";
-import TextField from "@mui/material/TextField";
+// import TextField from "@mui/material/TextField";
+// https://flags-roan-three.vercel.app/
 
 const CountryCard = ({ name, flagImg, flagAltText }) => {
   return (
@@ -35,13 +36,6 @@ const CountryCard = ({ name, flagImg, flagAltText }) => {
 function Countries() {
   const APIURL = "https://xcountries-backend.azurewebsites.net/all";
   const [countries, setCountries] = useState([]);
-  // const [searchTerm, setSearchTerm] = useState([]);
-  // const filteredCountries = countries.filter(
-  //   (country) =>
-  //     country.name &&
-  //     country.name.common &&
-  //     country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
 
   useEffect(() => {
     fetch(APIURL)
@@ -52,58 +46,22 @@ function Countries() {
       .catch((error) => console.error("Error fetching data:", error.message));
   }, []);
   return (
-    <div className="main">
-      {/* <p>Country search</p> */}
-      <div className="search">
-        <TextField
-          id="outlined-basic"
-          variant="outlined"
-          fullWidth
-          label="Search"
+    <div
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+      }}
+    >
+      {countries.map((country) => (
+        <CountryCard
+          key={country.abbr}
+          name={country.name}
+          flagImg={country.flag}
+          flagAltText={country.abbr}
         />
-        {/* <List /> */}
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-        }}
-      >
-        {countries.map((country) => (
-          <CountryCard
-            key={country.abbr}
-            name={country.name}
-            flagImg={country.flag}
-            flagAltText={country.abbr}
-          />
-        ))}
-      </div>
+      ))}
     </div>
   );
 }
-//   return (
-//     <div>
-//       <input
-//         type="text"
-//         placeholder="Search for a country"
-//         value={searchTerm}
-//         onChange={(e) => setSearchTerm(e.target.value)}
-//       />
-//       <div
-//         className="countryContainer"
-//         style={{ display: "flex", flexWrap: "wrap" }}
-//       >
-//         {filteredCountries.map((country) => (
-//           <CountryCard
-//             key={country.cca3}
-//             name={country.name.common}
-//             flagImg={country.flags.png}
-//             flagAltText={`Flag of ${country.name.common}`}
-//           />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
 
 export default Countries;
